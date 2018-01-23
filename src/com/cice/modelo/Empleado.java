@@ -63,7 +63,6 @@ public class Empleado {
 
     public String devuelvePuesto() {
         return null;
-
     }
 
 

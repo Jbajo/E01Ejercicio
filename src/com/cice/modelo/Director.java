@@ -19,7 +19,6 @@ public class Director extends Empleado{
         this.matriculaCoche = matriculaCoche;
         this.departamento = departamento;
         this.incentivo();
-
     }
 
     public Director(String nombre, float salario, String fechaNacimiento, String dni) {

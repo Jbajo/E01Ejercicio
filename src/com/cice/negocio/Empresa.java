@@ -372,9 +372,6 @@ public class Empresa {
         }while(bandera);
 
         return matricula;
-
-
-
     }
 
     /**
