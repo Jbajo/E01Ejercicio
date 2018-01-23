@@ -8,6 +8,5 @@ public class E01Empleados {
 	// write your code here
         Empresa empresa = new Empresa();
         empresa.showMenu();
-
     }
 }
