@@ -7,8 +7,6 @@ import com.cice.controlador.ValidadorDNI;
 import com.cice.modelo.Director;
 import com.cice.modelo.Empleado;
 import com.cice.modelo.Gerente;
-import com.cice.modelo.ValidadorDNI;
-
 
 /**
  * @author Javier Bajo Chacon  javier.bajochacon@gmail.com
