@@ -15,7 +15,8 @@ public class Gerente extends Empleado{
         this.incentivo();
     }
 
-    private void incentivo() {
+    @Override
+    protected void incentivo() {
         this.setSalario((float)(this.getSalario()*1.05));
     }
 
@@ -34,9 +35,10 @@ public class Gerente extends Empleado{
 
     @Override
     public String toString() {
-        return "Gerente [DNI=" +this.getDni() +",departamento=" + departamento + "]";
+        return super.toString()+",departamento=" + departamento;
     }
 
+    @Override
     public String devuelvePuesto() {
         return "Gerente";
     }

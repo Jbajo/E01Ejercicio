@@ -58,12 +58,15 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado [nombre=" + nombre + ", salario=" + salario + "]";
+        return "Empleado nombre=" + nombre + ", salario=" + salario;
     }
 
     public String devuelvePuesto() {
-        return null;
+        return "Empleado";
     }
 
+    protected void incentivo(){
+        this.salario=salario;
+    }
 
 }

@@ -10,7 +10,8 @@ public class Director extends Empleado{
     private String matriculaCoche;
     private String departamento;
 
-    private void incentivo() {
+    @Override
+    protected void incentivo() {
         this.setSalario(this.getSalario()*(float)1.10+(float)100);
     }
 
@@ -44,9 +45,9 @@ public class Director extends Empleado{
 
     @Override
     public String toString() {
-        return "Director [DNI= "+ this.getDni() + ", matriculaCoche=" + matriculaCoche + ", departamento=" + departamento + "]";
+        return super.toString()+"matriculaCoche= "+ this.matriculaCoche + ", departamento=" + departamento;
     }
-
+    @Override
     public String devuelvePuesto() {
         return "Director";
     }
