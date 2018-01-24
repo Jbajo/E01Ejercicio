@@ -7,6 +7,10 @@ import com.cice.modelo.Director;
 import com.cice.modelo.Empleado;
 import com.cice.modelo.Gerente;
 
+/**
+ * @author Javier Bajo Chacon  javier.bajochacon@gmail.com
+ */
+
 public class Empresa {
 
     private ArrayList <Empleado> listaEmpleados= new ArrayList <>();
@@ -344,7 +348,7 @@ public class Empresa {
 
     /**
      * Método comprobarMatricula comprueba que la matricula no esté todavía asignada a un Director
-     * @param matricula			 *
+     * 
      */
     private String comprobarMatricula() {
         boolean bandera = false;
