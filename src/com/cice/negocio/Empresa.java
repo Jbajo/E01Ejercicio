@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.cice.modelo.Director;
 import com.cice.modelo.Empleado;
 import com.cice.modelo.Gerente;
+import com.cice.modelo.ValidadorDNI;
 
 /**
  * @author Javier Bajo Chacon  javier.bajochacon@gmail.com
@@ -110,12 +111,18 @@ public class Empresa {
         empleado.setFechaNacimiento(sc.nextLine());
         System.out.println("Introduce un DNI");
         empleado.setDni(sc.nextLine());
+        while(!ValidadorDNI.validar(empleado.getDni())){
+            System.out.println("DNI ERRONEO...");
+            System.out.println("Introduce un DNI");
+            String dni = sc.nextLine();
+            empleado.setDni(dni);
+        }
         while(comprobarEmpleado(empleado.getDni())) {
             System.out.println("Ya existe un empleado con ese DNI");
             System.out.println("Introduce un DNI");
-            empleado.setDni(sc.next());
-            sc.nextLine();
-        }		;
+            String dni = sc.nextLine();
+            empleado.setDni(dni);
+        }
         listaEmpleados.add(empleado);
     }
 
@@ -348,7 +355,7 @@ public class Empresa {
 
     /**
      * Método comprobarMatricula comprueba que la matricula no esté todavía asignada a un Director
-     * 
+     *
      */
     private String comprobarMatricula() {
         boolean bandera = false;
