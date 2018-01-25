@@ -16,8 +16,6 @@ public class Empresa {
 
     private ArrayList <Empleado> listaEmpleados= new ArrayList <>();
     private ArrayList <String> listaDepartamentos= new ArrayList <>();
-    private ArrayList <Gerente> listaGerentes = new ArrayList <>();
-    private ArrayList <Director> listaDirectores = new ArrayList<>();
 
     /**
      * Método showMenu muestra el menú de la aplicación
@@ -225,80 +223,35 @@ public class Empresa {
         int i = 0;
         int aux =0;
         boolean bandera = false;
+        if(listaEmpleados.size()>0){
+        for (Empleado emp : listaEmpleados) {
+           if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
+               aux = i;
+               bandera = true;
+           } else if (emp.devuelvePuesto().equals("Director") && emp.getDni().equals(empleado.getDni())) {
+               System.out.println("El empleado seleccionado  ya es Director");
+           } else if (emp.devuelvePuesto().equals("Gerente") && emp.getDni().equals(empleado.getDni())) {
+               Gerente ger = new Gerente(emp.getNombre(), emp.getSalario(), emp.getFechaNacimiento(), emp.getDni());
+               if (!departamento.equals(ger.getDepartamento())) {
+                   System.out.println("El Empleado ya es Gerente de un Departamento");
+               }
 
-        bandera = comprobarGerenteDirector(empleado);
-        if(listaGerentes.size()>0&&!bandera)
-            for (Gerente gerente:listaGerentes) {
-                bandera = validacionesGerente(gerente, empleado, departamento);
-                if (i==listaGerentes.size()&&!bandera) {
-                    empleado.setDepartamento(departamento);
-                    listaGerentes.add(empleado);
-                    int j = 0;
-                    for(Empleado emp: listaEmpleados) {
-                        if(emp.getDni().equals(empleado.getDni()))
-                            aux = j;
-                        j++;
-                    }
-                    listaEmpleados.remove(aux);
-                    listaEmpleados.add(empleado);
-                }
-                i++;
+           } else {
+               listaEmpleados.add(empleado);
+           }
+       }
+            if(bandera) {
+                listaEmpleados.remove(i);
+                listaEmpleados.add(empleado);
+            }
 
-            }
-        else if(listaEmpleados.size() >0&&!bandera) {
-            empleado.setDepartamento(departamento);
-            listaGerentes.add(empleado);
-            int j = 0;
-            for(Empleado emp: listaEmpleados) {
-                if(emp.getDni().equals(empleado.getDni()))
-                    aux = j;
-                j++;
-            }
-            listaEmpleados.remove(aux);
+
+       }
+       else{
             listaEmpleados.add(empleado);
         }
     }
 
-    /**
-     * Método comprobarGerenteDirector comprueba que el Gerente no sea Director de un Departamento
-     * @param empleado Director
-     * @return true o false
-     */
-    private boolean comprobarGerenteDirector(Empleado empleado) {
-        if(listaDirectores.size()>0)
-            for(Director director:listaDirectores) {
-                if(empleado.getDni().equals(director.getDni())){
-                    System.out.println("Este Empleado ya es Director de un Departamento");
-                    return true;
-                }
-            }
-        return false;
-    }
-
-    /**
-     * Método validacionesGerente con las distintas validaciones a la hora de crear un Gerente
-     * @param gerente
-     * @param empleado
-     * @param departamento
-     * @return true o false
-     */
-
-    private boolean validacionesGerente(Gerente gerente, Empleado empleado, String departamento) {
-
-        if(gerente.getDni().equals(empleado.getDni()) && gerente.getDepartamento().equals(departamento)) {
-            System.out.println("Este empleado ya es Gerente de este Departamento");
-            return true;
-        }
-        else if (gerente.getDni().equals(empleado.getDni()) &&!gerente.getDepartamento().equals(departamento)) {
-            System.out.println("El empleado no puede ser Gerente de más de un Departamento");
-            return true;
-        }
-        else if (!gerente.getDni().equals(empleado.getDni()) && gerente.getDepartamento().equals(departamento)) {
-            System.out.println("Este Departamento ya tiene un Gerente");
-            return true;
-        }
-        return false;
-    }
     /**
      * Méetodo mostrarEmpleado muestra los Empleados del ArrayList de Empleados
      */
@@ -372,13 +325,18 @@ public class Empresa {
                 System.out.println("Introduzca una matricula para el vehiculo");
                 matricula = sc.nextLine();
             }
-            if(listaDirectores.size()>0)
-                for(Director director: listaDirectores) {
-                    if(director.getMatriculaCoche().equals(matricula))
-                        bandera = true;
-                    else
-                        bandera = false;
+            if(listaEmpleados.size()>0)
+
+                for(Empleado empleado : listaEmpleados){
+                    if(empleado.devuelvePuesto().equals("Director")) {
+                        Director aux= new Director (empleado.getNombre(), empleado.getSalario(), empleado.getFechaNacimiento(), empleado.getDni());
+                        if(aux.getMatriculaCoche().equals(matricula))
+                            bandera = true;
+                        else
+                            bandera = false;
+                    }
                 }
+
             bandera = false;
         }while(bandera);
 
@@ -396,86 +354,30 @@ public class Empresa {
         int aux = 0;
         boolean bandera = false;
 
-        comprobarEliminarGerente(empleado);
-        if(listaDirectores.size()>0)
-            for (Director director:listaDirectores) {
-                bandera = validacionesDirector(director, empleado, departamento);
-                if (i==listaDirectores.size()&&!bandera) {
-                    empleado.setDepartamento(departamento);
-                    listaDirectores.add(empleado);
-                    int j = 0;
-                    for(Empleado emp: listaEmpleados) {
-                        if(emp.getDni().equals(empleado.getDni()))
-                            aux = j;
-                        j++;
-                    }
-                    listaEmpleados.remove(aux);
-                    listaEmpleados.add(empleado);
+        for (Empleado emp : listaEmpleados){
+            if (emp.devuelvePuesto().equals("Empleado")&&emp.getDni().equals(empleado.getDni())) {
+                listaEmpleados.remove(i);
+                listaEmpleados.add(empleado);
+            }
+            else if(emp.devuelvePuesto().equals("Gerente")&&emp.getDni().equals(empleado.getDni())){
+                listaEmpleados.remove(i);
+                listaEmpleados.add(empleado);
+            }
+            else if(emp.devuelvePuesto().equals("Gerente")&&emp.getDni().equals(empleado.getDni())){
+                Director ger = new Director(emp.getNombre(), emp.getSalario(), emp.getFechaNacimiento(), emp.getDni());
+                if(!ger.getDepartamento().equals(departamento)){
+                    System.out.println("El Empleado ya es Director de un Departamento");
                 }
-                i++;
 
             }
-        else if(listaEmpleados.size() >0) {
-            empleado.setDepartamento(departamento);
-            listaDirectores.add(empleado);
-            int j = 0;
-            for(Empleado emp: listaEmpleados) {
-                if(emp.getDni().equals(empleado.getDni())) {
-                    aux = j;
-                }
-                j++;
+
+            else{
+                listaEmpleados.add(empleado);
             }
-            listaEmpleados.remove(aux);
-            listaEmpleados.add(empleado);
         }
 
     }
 
-    /**
-     * Método validacionesDirector con las distintas validaciones a la hora de crear un Director
-     * @param director
-     * @param empleado
-     * @param departamento
-     * @return true o false
-     */
-
-    private boolean validacionesDirector(Director director, Empleado empleado, String departamento) {
-        if(director.getDni().equals(empleado.getDni()) && director.getDepartamento().equals(departamento)) {
-            System.out.println("Este empleado ya es Director de este Departamento");
-            return true;
-        }
-        else if (director.getDni().equals(empleado.getDni()) &&!director.getDepartamento().equals(departamento)) {
-            System.out.println("El empleado no puede ser Director de más de un Departamento");
-            return true;
-        }
-        else if (!director.getDni().equals(empleado.getDni()) && director.getDepartamento().equals(departamento)) {
-            System.out.println("Este Departamento ya tiene un Director");
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Método ComprobarEliminarGerente comprueba que el Director no sea previamente Gerente si es así lo elimina de la lista de Gerentes
-     * @param empleado Director
-     */
-
-    private void comprobarEliminarGerente(Director empleado){
-        boolean bandera = false;
-        int i = 0;
-        int aux = 0;
-
-        if(listaGerentes.size() > 0)
-            for (Gerente gerente : listaGerentes) {
-                if(empleado.getDni().equals(gerente.getDni())) {
-                    aux = i;
-                    bandera = true;
-                }
-                i++;
-            }
-        if(bandera)
-            listaGerentes.remove(aux);
-    }
 
     /**
      * Método mostrarGerentes() muestra los Gerentes del ArrayList de Gerentes
@@ -483,10 +385,12 @@ public class Empresa {
 
     private void mostrarGerentes() {
         int i = 0;
-        if (listaGerentes.size()>0) {
-            for (Gerente gerente : listaGerentes)
-                System.out.println(i+ ") "+ gerente.toString());
-            i++;
+        if (listaEmpleados.size()>0) {
+            for (Empleado empleado : listaEmpleados) {
+                if (empleado.devuelvePuesto().equals("Gerente"))
+                    System.out.println(i + ") " + empleado.toString());
+                i++;
+            }
         }
     }
     /**
@@ -495,10 +399,12 @@ public class Empresa {
 
     private void mostrarDirectores() {
         int i = 0;
-        if (listaDirectores.size()>0) {
-            for (Director director : listaDirectores)
-                System.out.println(i+ ") "+ director.toString());
-            i++;
+        if (listaEmpleados.size()>0) {
+            for (Empleado empleado : listaEmpleados) {
+                if (empleado.devuelvePuesto().equals("Director"))
+                    System.out.println(i + ") " + empleado.toString());
+                i++;
+            }
         }
     }
 
