@@ -380,7 +380,7 @@ public class Empresa {
 
 
     /**
-     * Método mostrarGerentes() muestra los Gerentes del ArrayList de Gerentes
+     * Método mostrarGerentes() muestra los Gerentes del ArrayList de Empleados
      */
 
     private void mostrarGerentes() {
@@ -394,7 +394,7 @@ public class Empresa {
         }
     }
     /**
-     * Método mostrarDirectores() muestra los Directores del ArrayList de Directores
+     * Método mostrarDirectores() muestra los Directores del ArrayList de Empleados
      */
 
     private void mostrarDirectores() {
