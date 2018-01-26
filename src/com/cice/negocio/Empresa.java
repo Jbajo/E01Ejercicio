@@ -109,12 +109,12 @@ public class Empresa {
         empleado.setFechaNacimiento(sc.nextLine());
         System.out.println("Introduce un DNI");
         empleado.setDni(sc.nextLine());
-        while(!ValidadorDNI.validar(empleado.getDni())){
+      /*  while(!ValidadorDNI.validar(empleado.getDni())){
             System.out.println("DNI ERRONEO...");
             System.out.println("Introduce un DNI");
             String dni = sc.nextLine();
             empleado.setDni(dni);
-        }
+        }*/
         while(comprobarEmpleado(empleado.getDni())) {
             System.out.println("Ya existe un empleado con ese DNI");
             System.out.println("Introduce un DNI");
@@ -202,8 +202,12 @@ public class Empresa {
                 opcion2 = sc.nextInt();
             }while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);
             Empleado aux = listaEmpleados.get(opcion1-1);
-            Gerente gerente = new Gerente (aux.getNombre(),aux.getSalario(), aux.getFechaNacimiento(), aux.getDni(), listaDepartamentos.get(opcion2-1));;
-            comprobarAgregarGerenteDepartamento(gerente,listaDepartamentos.get(opcion2-1));
+            if(aux instanceof Gerente)
+                comprobarAgregarGerenteDepartamento((Gerente)aux,listaDepartamentos.get(opcion2-1));
+            else {
+                Gerente gerente = new Gerente(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni(), listaDepartamentos.get(opcion2 - 1));
+                comprobarAgregarGerenteDepartamento(gerente, listaDepartamentos.get(opcion2 - 1));
+            }
         }
         else if (listaEmpleados.size()==0)
             System.out.println("Debe crear antes un Empleado");
@@ -214,8 +218,8 @@ public class Empresa {
     }
 
     /**
-     * Método comprobarAgregarGerenteDepartamento comprueba que el empleado no sea Gerente de más de un Departamento
-     * ,que el Departamento no tenga Gerente y que el empleado no sea todavía Gerente del Departamento
+     * Método comprobarAgregarGerenteDepartamento comprueba que el empleado no sea Gerente del Departamento seleccionado
+     * y que que el Departamento no tenga Gerente todavía
      * @param empleado empleado a procesar
      * @param departamento en el que realizar la bśuqueda
      */
@@ -228,26 +232,36 @@ public class Empresa {
            if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
                aux = i;
                bandera = true;
-           } else if (emp.devuelvePuesto().equals("Director") && emp.getDni().equals(empleado.getDni())) {
-               System.out.println("El empleado seleccionado  ya es Director");
-           } else if (emp.devuelvePuesto().equals("Gerente") && emp.getDni().equals(empleado.getDni())) {
-               Gerente ger = new Gerente(emp.getNombre(), emp.getSalario(), emp.getFechaNacimiento(), emp.getDni());
-               if (!departamento.equals(ger.getDepartamento())) {
-                   System.out.println("El Empleado ya es Gerente de un Departamento");
+           }
+           else if(emp instanceof  Gerente){
+               if(emp.getDni().equals(empleado.getDni())){
+                   System.out.println("Este empleado ya es Gerente de un Departamento");
+                   bandera=false;
+               }
+               else if(!emp.getDni().equals(empleado.getDni())&&((Gerente) emp).getDepartamento().equals(departamento)){
+                   System.out.println("Este Departamento ya tiene un Gerente");
+                   bandera=false;
+
                }
 
-           } else {
-               listaEmpleados.add(empleado);
+           }
+           else if (emp instanceof Director){
+               if(emp.getDni().equals(empleado.getDni())){
+                   System.out.println("El empleado ya es Director de un Departamento");
+               }
+
            }
        }
             if(bandera) {
                 listaEmpleados.remove(i);
+                empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
 
 
        }
        else{
+            empleado.setDepartamento(departamento);
             listaEmpleados.add(empleado);
         }
     }
@@ -326,18 +340,17 @@ public class Empresa {
                 matricula = sc.nextLine();
             }
             if(listaEmpleados.size()>0)
-
-                for(Empleado empleado : listaEmpleados){
-                    if(empleado.devuelvePuesto().equals("Director")) {
-                        Director aux= new Director (empleado.getNombre(), empleado.getSalario(), empleado.getFechaNacimiento(), empleado.getDni());
-                        if(aux.getMatriculaCoche().equals(matricula))
+            for (Empleado empleado : listaEmpleados){
+                    if(empleado instanceof Director)
+                        if(((Director) empleado).getMatriculaCoche().equals(matricula)){
                             bandera = true;
-                        else
+                        }
+                        else{
                             bandera = false;
-                    }
-                }
+                        }
+            }
 
-            bandera = false;
+
         }while(bandera);
 
         return matricula;
@@ -349,46 +362,56 @@ public class Empresa {
      * @param empleado empleado a procesar
      * @param departamento en el que realizar la bśuqueda
      */
+
     private void comprobarAgregarDirectorDepartamento(Director empleado, String departamento) {
         int i = 0;
         int aux = 0;
         boolean bandera = false;
 
-        for (Empleado emp : listaEmpleados){
-            if (emp.devuelvePuesto().equals("Empleado")&&emp.getDni().equals(empleado.getDni())) {
-                listaEmpleados.remove(i);
-                listaEmpleados.add(empleado);
-            }
-            else if(emp.devuelvePuesto().equals("Gerente")&&emp.getDni().equals(empleado.getDni())){
-                listaEmpleados.remove(i);
-                listaEmpleados.add(empleado);
-            }
-            else if(emp.devuelvePuesto().equals("Gerente")&&emp.getDni().equals(empleado.getDni())){
-                Director ger = new Director(emp.getNombre(), emp.getSalario(), emp.getFechaNacimiento(), emp.getDni());
-                if(!ger.getDepartamento().equals(departamento)){
-                    System.out.println("El Empleado ya es Director de un Departamento");
+        if(listaEmpleados.size()>0){
+            for (Empleado emp : listaEmpleados) {
+                if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
+                    aux = i;
+                    bandera = true;
                 }
+                else if(emp instanceof  Director){
+                    if(emp.getDni().equals(empleado.getDni())){
+                        System.out.println("Este empleado ya es Director");
+                        bandera=false;
+                    }
+                    else if(!emp.getDni().equals(empleado.getDni())&&((Director) emp).getDepartamento().equals(departamento)){
+                        System.out.println("Este Departamento ya tiene un Director");
+                        bandera=false;
 
+                    }
+
+                }
             }
-
-            else{
+            if(bandera) {
+                listaEmpleados.remove(i);
+                empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
-        }
 
+
+        }
+        else{
+            empleado.setDepartamento(departamento);
+            listaEmpleados.add(empleado);
+        }
     }
 
 
-    /**
-     * Método mostrarGerentes() muestra los Gerentes del ArrayList de Empleados
-     */
+        /**
+         * Método mostrarGerentes() muestra los Gerentes del ArrayList de Empleados
+         */
 
     private void mostrarGerentes() {
         int i = 0;
         if (listaEmpleados.size()>0) {
             for (Empleado empleado : listaEmpleados) {
-                if (empleado.devuelvePuesto().equals("Gerente"))
-                    System.out.println(i + ") " + empleado.toString());
+                if (empleado instanceof Gerente)
+                    System.out.println(i + ") " + ((Gerente)empleado).toString());
                 i++;
             }
         }
@@ -401,8 +424,8 @@ public class Empresa {
         int i = 0;
         if (listaEmpleados.size()>0) {
             for (Empleado empleado : listaEmpleados) {
-                if (empleado.devuelvePuesto().equals("Director"))
-                    System.out.println(i + ") " + empleado.toString());
+                if (empleado instanceof Director)
+                    System.out.println(i + ") " + ((Director)empleado).toString());
                 i++;
             }
         }
