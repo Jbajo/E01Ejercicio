@@ -204,6 +204,8 @@ public class Empresa {
             Empleado aux = listaEmpleados.get(opcion1-1);
             if(aux instanceof Gerente)
                 comprobarAgregarGerenteDepartamento((Gerente)aux,listaDepartamentos.get(opcion2-1));
+            if (aux instanceof Director)
+                System.out.println("El empleado ya es Director de un Departamento");
             else {
                 Gerente gerente = new Gerente(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni(), listaDepartamentos.get(opcion2 - 1));
                 comprobarAgregarGerenteDepartamento(gerente, listaDepartamentos.get(opcion2 - 1));
@@ -245,12 +247,7 @@ public class Empresa {
                }
 
            }
-           else if (emp instanceof Director){
-               if(emp.getDni().equals(empleado.getDni())){
-                   System.out.println("El empleado ya es Director de un Departamento");
-               }
 
-           }
        }
             if(bandera) {
                 listaEmpleados.remove(i);
@@ -357,8 +354,8 @@ public class Empresa {
     }
 
     /**
-     * Método comprobarAgregarDirectorDepartamento comprueba que el empleado no sea Director de más de un Departamento
-     * ,que el Departamento no tenga Director y que el empleado no sea todavía Director del Departamento
+     * Método comprobarAgregarDirectorDepartamento comprueba que el empleado no sea Director del Departamento seleccionado
+     * y que que el Departamento no tenga Director todavía
      * @param empleado empleado a procesar
      * @param departamento en el que realizar la bśuqueda
      */
