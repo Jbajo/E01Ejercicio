@@ -247,10 +247,11 @@ public class Empresa {
                }
 
            }
+           i++;
 
        }
             if(bandera) {
-                listaEmpleados.remove(i);
+                listaEmpleados.remove(aux);
                 empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
@@ -305,10 +306,17 @@ public class Empresa {
                 opcion2 =  Integer.parseInt(sc.nextLine());
             }while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);
             Empleado aux = listaEmpleados.get(opcion1-1);
-            Director director = new Director (aux.getNombre(),aux.getSalario(), aux.getFechaNacimiento(), aux.getDni());
-            director.setMatriculaCoche(comprobarMatricula());
-            comprobarAgregarDirectorDepartamento(director,listaDepartamentos.get(opcion2-1));
-        }
+            if(aux instanceof  Gerente || aux instanceof Empleado) {
+                Director director = new Director(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni());
+                director.setMatriculaCoche(comprobarMatricula());
+                comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion2 - 1));
+            }
+            else if (aux instanceof Director){
+                comprobarAgregarDirectorDepartamento(((Director)aux), listaDepartamentos.get(opcion2 - 1));
+            }
+
+            }
+
         else if (listaEmpleados.size()==0)
             System.out.println("Debe crear antes un Empleado");
 
@@ -383,9 +391,17 @@ public class Empresa {
                     }
 
                 }
+                else if (emp instanceof Gerente) {
+                    if (emp.getDni().equals(empleado.getDni())) {
+                        aux = i;
+                        bandera = true;
+                    }
+
+                }
+                i++;
             }
             if(bandera) {
-                listaEmpleados.remove(i);
+                listaEmpleados.remove(aux);
                 empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
