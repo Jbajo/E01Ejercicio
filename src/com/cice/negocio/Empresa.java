@@ -109,12 +109,12 @@ public class Empresa {
         empleado.setFechaNacimiento(sc.nextLine());
         System.out.println("Introduce un DNI");
         empleado.setDni(sc.nextLine());
-      /*  while(!ValidadorDNI.validar(empleado.getDni())){
+        while(!ValidadorDNI.validar(empleado.getDni())){
             System.out.println("DNI ERRONEO...");
             System.out.println("Introduce un DNI");
             String dni = sc.nextLine();
             empleado.setDni(dni);
-        }*/
+        }
         while(comprobarEmpleado(empleado.getDni())) {
             System.out.println("Ya existe un empleado con ese DNI");
             System.out.println("Introduce un DNI");
