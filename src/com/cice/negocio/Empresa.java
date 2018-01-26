@@ -238,25 +238,20 @@ public class Empresa {
            else if(emp instanceof  Gerente){
                if(emp.getDni().equals(empleado.getDni())){
                    System.out.println("Este empleado ya es Gerente de un Departamento");
-                   bandera=false;
+                   bandera = false;
                }
                else if(!emp.getDni().equals(empleado.getDni())&&((Gerente) emp).getDepartamento().equals(departamento)){
                    System.out.println("Este Departamento ya tiene un Gerente");
-                   bandera=false;
-
+                   bandera = false;
                }
-
            }
            i++;
-
        }
             if(bandera) {
                 listaEmpleados.remove(aux);
                 empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
-
-
        }
        else{
             empleado.setDepartamento(departamento);
@@ -272,8 +267,8 @@ public class Empresa {
 
         System.out.println("-------------");
         for (Empleado empleado : listaEmpleados) {
-            System.out.println(i+1 + ") " + empleado.toString());
-            i++;
+                System.out.println(i + 1 + ") " + empleado.toString());
+                i++;
         }
         System.out.println("-------------");
     }
@@ -306,12 +301,12 @@ public class Empresa {
                 opcion2 =  Integer.parseInt(sc.nextLine());
             }while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);
             Empleado aux = listaEmpleados.get(opcion1-1);
-            if(aux instanceof  Gerente || aux instanceof Empleado) {
+            if(!(aux instanceof  Director)) {
                 Director director = new Director(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni());
                 director.setMatriculaCoche(comprobarMatricula());
                 comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion2 - 1));
             }
-            else if (aux instanceof Director){
+            else{
                 comprobarAgregarDirectorDepartamento(((Director)aux), listaDepartamentos.get(opcion2 - 1));
             }
 
@@ -354,7 +349,6 @@ public class Empresa {
                             bandera = false;
                         }
             }
-
 
         }while(bandera);
 
@@ -405,8 +399,6 @@ public class Empresa {
                 empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
-
-
         }
         else{
             empleado.setDepartamento(departamento);
