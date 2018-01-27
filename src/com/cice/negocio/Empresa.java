@@ -86,9 +86,9 @@ public class Empresa {
      * Método mostrarDepartamento muestra todos los Departamentos del ArrayList de Departamentos
      */
     private void mostrarDepartamento() {
-        int i = 0;
+        int i = 1;
         for (String dept:listaDepartamentos) {
-            System.out.println(i+1 + ") " +dept);
+            System.out.println(i + ") " +dept);
             i++;
         }
     }
@@ -263,11 +263,11 @@ public class Empresa {
      * Méetodo mostrarEmpleado muestra los Empleados del ArrayList de Empleados
      */
     private void mostrarEmpleado() {
-        int i = 0;
+        int i = 1;
 
         System.out.println("-------------");
         for (Empleado empleado : listaEmpleados) {
-                System.out.println(i + 1 + ") " + empleado.toString());
+                System.out.println(i + ") " + empleado.toString());
                 i++;
         }
         System.out.println("-------------");
@@ -412,12 +412,13 @@ public class Empresa {
          */
 
     private void mostrarGerentes() {
-        int i = 0;
+        int i = 1;
         if (listaEmpleados.size()>0) {
             for (Empleado empleado : listaEmpleados) {
-                if (empleado instanceof Gerente)
-                    System.out.println(i + ") " + ((Gerente)empleado).toString());
-                i++;
+                if (empleado instanceof Gerente) {
+                    System.out.println(i + ") " + ((Gerente) empleado).toString());
+                    i++;
+                }
             }
         }
     }
@@ -426,12 +427,13 @@ public class Empresa {
      */
 
     private void mostrarDirectores() {
-        int i = 0;
+        int i = 1;
         if (listaEmpleados.size()>0) {
             for (Empleado empleado : listaEmpleados) {
-                if (empleado instanceof Director)
-                    System.out.println(i + ") " + ((Director)empleado).toString());
-                i++;
+                if (empleado instanceof Director) {
+                    System.out.println(i + ") " + ((Director) empleado).toString());
+                    i++;
+                }
             }
         }
     }
