@@ -381,16 +381,13 @@ public class Empresa {
                     else if(!emp.getDni().equals(empleado.getDni())&&((Director) emp).getDepartamento().equals(departamento)){
                         System.out.println("Este Departamento ya tiene un Director");
                         bandera=false;
-
                     }
-
                 }
                 else if (emp instanceof Gerente) {
                     if (emp.getDni().equals(empleado.getDni())) {
                         aux = i;
                         bandera = true;
                     }
-
                 }
                 i++;
             }
