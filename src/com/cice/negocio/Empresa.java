@@ -213,7 +213,6 @@ public class Empresa {
         }
         else if (listaEmpleados.size()==0)
             System.out.println("Debe crear antes un Empleado");
-
         else
             System.out.println("Debe crear antes un Departamento");
 

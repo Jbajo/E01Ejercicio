@@ -30,11 +30,9 @@ public class Director extends Empleado{
     public String getMatriculaCoche() {
         return matriculaCoche;
     }
-
     public void setMatriculaCoche(String matriculaCoche) {
         this.matriculaCoche = matriculaCoche;
     }
-
     public String getDepartamento() {
         return departamento;
     }

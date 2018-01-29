@@ -20,7 +20,6 @@ public class Gerente extends Empleado{
         this.setSalario(this.getSalario()*1.05f);
     }
 
-
     public Gerente(String nombre, float salario, String fechaNacimiento, String dni) {
         super(nombre, salario, fechaNacimiento, dni);
         this.incentivo();
