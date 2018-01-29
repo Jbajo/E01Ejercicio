@@ -32,7 +32,7 @@ public class Gerente extends Empleado{
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
-    public void eliminarIncnetivo(){this.setSalario(this.getSalario()/1.05f);}
+    public void eliminarIncentivo(){this.setSalario(this.getSalario()/1.05f);}
 
 
     @Override

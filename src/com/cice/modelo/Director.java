@@ -27,6 +27,7 @@ public class Director extends Empleado{
         this.incentivo();
     }
 
+    public void eliminarIncentivo(){this.setSalario((this.getSalario()-100f)/1.10f);}
     public String getMatriculaCoche() {
         return matriculaCoche;
     }
@@ -40,7 +41,7 @@ public class Director extends Empleado{
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
-    public void eliminarIncnetivo(){this.setSalario((this.getSalario()-100f)/1.10f);}
+
 
     @Override
     public String toString() {
