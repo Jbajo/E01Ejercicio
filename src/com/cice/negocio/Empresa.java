@@ -228,7 +228,7 @@ public class Empresa {
      * @param empleado     empleado a procesar
      * @param departamento en el que realizar la bśuqueda
      */
-    private void comprobarAgregarGerenteDepartamento(Gerente empleado, String departamento) {
+    private boolean comprobarAgregarGerenteDepartamento(Empleado empleado, String departamento) {
         int i = 0;
         int aux = 0;
         boolean bandera = false;
@@ -248,15 +248,17 @@ public class Empresa {
                 }
                 i++;
             }
-            if (bandera) {
+            if (bandera && empleado instanceof Gerente) {
                 listaEmpleados.remove(aux);
-                empleado.setDepartamento(departamento);
+                ((Gerente)empleado).setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
-        } else {
-            empleado.setDepartamento(departamento);
+        } else if (empleado instanceof Gerente){
+            ((Gerente)empleado).setDepartamento(departamento);
             listaEmpleados.add(empleado);
         }
+
+        return bandera;
     }
 
     /**
@@ -307,7 +309,7 @@ public class Empresa {
                 ((Gerente) aux).eliminarIncentivo();
                 crearDirector(aux, opcion2);
             } else
-                comprobarAgregarDirectorDepartamento(((Director) aux), listaDepartamentos.get(opcion2 - 1));
+                comprobarAgregarDirectorDepartamento(aux,listaDepartamentos.get(opcion2 - 1));
         } else if (listaEmpleados.size() == 0)
             System.out.println("Debe crear antes un Empleado");
 
@@ -365,13 +367,12 @@ public class Empresa {
 
     /**
      * Método comprobarAgregarDirectorDepartamento comprueba que el empleado no sea Director del Departamento seleccionado
-     * y que que el Departamento no tenga Director todavía
-     *
+     * y que que el Departamento no tenga Director todavía     *
      * @param empleado     empleado a procesar
      * @param departamento en el que realizar la bśuqueda
      */
 
-    private void comprobarAgregarDirectorDepartamento(Director empleado, String departamento) {
+    private boolean comprobarAgregarDirectorDepartamento(Empleado empleado, String departamento) {
         int i = 0;
         int aux = 0;
         boolean bandera = false;
@@ -397,15 +398,17 @@ public class Empresa {
                 }
                 i++;
             }
-            if (bandera) {
+            if (bandera && empleado instanceof Director) {
                 listaEmpleados.remove(aux);
-                empleado.setDepartamento(departamento);
+                ((Director)empleado).setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
-        } else {
-            empleado.setDepartamento(departamento);
+        } else if (empleado instanceof Director){
+            ((Director)empleado).setDepartamento(departamento);
             listaEmpleados.add(empleado);
         }
+
+        return bandera;
     }
 
 
@@ -440,6 +443,8 @@ public class Empresa {
             }
         }
     }
+
+
 }
 
 
