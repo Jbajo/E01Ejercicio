@@ -301,7 +301,14 @@ public class Empresa {
                 opcion2 =  Integer.parseInt(sc.nextLine());
             }while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);
             Empleado aux = listaEmpleados.get(opcion1-1);
-            if(!(aux instanceof  Director)) {
+            if(!(aux instanceof  Director) && !(aux instanceof Gerente)) {
+                Director director = new Director(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni());
+                director.setMatriculaCoche(comprobarMatricula());
+                comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion2 - 1));
+            }
+            else if (aux instanceof Gerente) {
+                ((Gerente) aux).eliminarIncnetivo();
+                System.out.println(aux.getSalario());
                 Director director = new Director(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni());
                 director.setMatriculaCoche(comprobarMatricula());
                 comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion2 - 1));

@@ -12,7 +12,7 @@ public class Director extends Empleado{
 
     @Override
     protected void incentivo() {
-        this.setSalario(this.getSalario()*(float)1.10+(float)100);
+        this.setSalario(this.getSalario()*1.10f+(float)100);
     }
 
     public Director(String nombre, float salario, String fechaNacimiento, String matriculaCoche,String dni, String departamento) {
@@ -42,6 +42,7 @@ public class Director extends Empleado{
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
+    public void eliminarIncnetivo(){this.setSalario((this.getSalario()-100f)/1.10f);}
 
     @Override
     public String toString() {
