@@ -301,28 +301,34 @@ public class Empresa {
             }while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);
             Empleado aux = listaEmpleados.get(opcion1-1);
             if(!(aux instanceof  Director) && !(aux instanceof Gerente)) {
-                Director director = new Director(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni());
-                director.setMatriculaCoche(comprobarMatricula());
-                comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion2 - 1));
+               crearDirector(aux,opcion2);
             }
             else if (aux instanceof Gerente) {
                 ((Gerente) aux).eliminarIncnetivo();
-                System.out.println(aux.getSalario());
-                Director director = new Director(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni());
-                director.setMatriculaCoche(comprobarMatricula());
-                comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion2 - 1));
+                crearDirector(aux,opcion2);
             }
-            else{
+            else
                 comprobarAgregarDirectorDepartamento(((Director)aux), listaDepartamentos.get(opcion2 - 1));
-            }
-
-            }
+        }
 
         else if (listaEmpleados.size()==0)
             System.out.println("Debe crear antes un Empleado");
 
         else
             System.out.println("Debe crear antes un Departamento");
+
+    }
+
+    /**
+     * Método crearDirector Crea un director, comprueba su matrícula y llama al méotdo comprobarAgregarDirectorDepartamento
+     * @param empleado a promocionar
+     * @param opcion posicion que ocupa en la lista de Empleados
+     */
+    private void crearDirector (Empleado empleado, int opcion){
+
+        Director director = new Director(empleado.getNombre(), empleado.getSalario(), empleado.getFechaNacimiento(), empleado.getDni());
+        director.setMatriculaCoche(comprobarMatricula());
+        comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion - 1));
 
     }
 
