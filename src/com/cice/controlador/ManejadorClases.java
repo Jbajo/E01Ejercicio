@@ -49,4 +49,15 @@ public class ManejadorClases {
         empleado.setDni(director.getDni());
         return empleado;
     }
+
+    public static Empleado copiarDirectorGerente (Director director){
+        director.eliminarIncentivo();
+        Gerente gerente = new Gerente();
+        gerente.setNombre(director.getNombre());
+        gerente.setSalario(director.getSalario());
+        gerente.setFechaNacimiento(director.getFechaNacimiento());
+        gerente.setDni(director.getDni());
+        gerente.incentivo();
+        return gerente;
+    }
 }

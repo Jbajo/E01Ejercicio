@@ -16,6 +16,7 @@ public class Gerente extends Empleado{
     public Gerente(String nombre, float salario, String fechaNacimiento, String dni, String departamento) {
         super(nombre, salario, fechaNacimiento, dni);
         this.departamento = departamento;
+        this.incentivo();
     }
 
 

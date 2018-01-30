@@ -21,6 +21,7 @@ public class Director extends Empleado{
 
     public Director(String nombre, float salario, String fechaNacimiento, String dni) {
         super(nombre, salario, fechaNacimiento, dni);
+        this.incentivo();
     }
 
 

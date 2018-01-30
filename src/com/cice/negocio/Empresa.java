@@ -540,7 +540,7 @@ public class Empresa {
             Empleado aux = listaEmpleados.get(opcion1 - 1);
             String departamento = listaDepartamentos.get(opcion2 - 1);
             if (aux.devuelvePuesto().equals("Director")) {
-                Empleado empleado = ManejadorClases.copiarDirectorEmpleado((Director) aux);
+                Empleado empleado = ManejadorClases.copiarDirectorGerente((Director)aux);
                 listaEmpleados.remove(opcion1 - 1);
                 listaEmpleados.add(empleado);
             } else if (aux.devuelvePuesto().equals("Gerente")) {
