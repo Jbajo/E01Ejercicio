@@ -8,15 +8,18 @@ public class Gerente extends Empleado{
 
     private String departamento;
 
+    public Gerente (){
+        super();
 
+    }
     public Gerente(String nombre, float salario, String fechaNacimiento, String dni, String departamento) {
         super(nombre, salario, fechaNacimiento, dni);
         this.departamento = departamento;
-        this.incentivo();
+
     }
 
     @Override
-    protected void incentivo() {
+    public void incentivo() {
         this.setSalario(this.getSalario()*1.05f);
     }
 
@@ -43,5 +46,10 @@ public class Gerente extends Empleado{
     @Override
     public String devuelvePuesto() {
         return "Gerente";
+    }
+
+    @Override
+    public void eliminarIncentivo() {
+        this.setSalario(this.getSalario()/1.05f);
     }
 }

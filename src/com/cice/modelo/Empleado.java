@@ -68,5 +68,7 @@ public class Empleado {
     protected void incentivo(){
         this.salario=salario;
     }
-
+    protected void eliminarIncentivo(){
+        this.salario=salario;
+    }
 }

@@ -3,6 +3,7 @@ package com.cice.negocio;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.cice.controlador.ManejadorClases;
 import com.cice.controlador.ValidadorDNI;
 import com.cice.modelo.Director;
 import com.cice.modelo.Empleado;
@@ -14,14 +15,14 @@ import com.cice.modelo.Gerente;
 
 public class Empresa {
 
-    private ArrayList<Empleado> listaEmpleados = new ArrayList<>();
-    private ArrayList<String> listaDepartamentos = new ArrayList<>();
+    private ArrayList <Empleado> listaEmpleados= new ArrayList <>();
+    private ArrayList <String> listaDepartamentos= new ArrayList <>();
 
     /**
      * Método showMenu muestra el menú de la aplicación
      */
     public void showMenu() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner (System.in);
         int opcion = 0;
 
         do {
@@ -34,20 +35,21 @@ public class Empresa {
             System.out.println("5. Mostrar todos los Empleados");
             System.out.println("6. Mostrar todos los Gerentes");
             System.out.println("7. Mostrar todos los Directores");
+            System.out.println("8. Promocionar Empleado");
+            System.out.println("9. Eliminar Promoción Empleado");
             System.out.println("0. Salir");
             opcion = sc.nextInt();
-            controles(opcion);
-        } while (opcion != 0);
+            controles (opcion);
+        }while (opcion!=0);
         sc.close();
     }
 
     /**
      * Método controles llama a los distintos métodos de la aplicación
-     *
      * @param opcion seleccionada
      */
-    private void controles(int opcion) {
-        switch (opcion) {
+    private void controles (int opcion) {
+        switch (opcion){
             case 0:
                 break;
             case 1:
@@ -78,19 +80,26 @@ public class Empresa {
                 //Mostrar todos los Directores
                 mostrarDirectores();
                 break;
+            case 8:
+                //Promocionar un Empleado
+                promocionarEmpleado();
+                break;
+            case 9:
+                //Bajar Rango Empleado
+                bajarPromocionEmpleado();
+                break;
             default:
                 System.out.println("la opcion seleccionada no es valida");
                 break;
         }
     }
-
     /**
      * Método mostrarDepartamento muestra todos los Departamentos del ArrayList de Departamentos
      */
     private void mostrarDepartamento() {
         int i = 1;
-        for (String dept : listaDepartamentos) {
-            System.out.println(i + ") " + dept);
+        for (String dept:listaDepartamentos) {
+            System.out.println(i + ") " +dept);
             i++;
         }
     }
@@ -100,7 +109,7 @@ public class Empresa {
      */
 
     private void crearEmpleado() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner (System.in);
         Empleado empleado = new Empleado();
 
         System.out.println("Introduce un nombre");
@@ -111,13 +120,13 @@ public class Empresa {
         empleado.setFechaNacimiento(sc.nextLine());
         System.out.println("Introduce un DNI");
         empleado.setDni(sc.nextLine());
-        while (!ValidadorDNI.validar(empleado.getDni())) {
+        while(!ValidadorDNI.validar(empleado.getDni())){
             System.out.println("DNI ERRONEO...");
             System.out.println("Introduce un DNI");
             String dni = sc.nextLine();
             empleado.setDni(dni);
         }
-        while (comprobarEmpleado(empleado.getDni())) {
+        while(comprobarEmpleado(empleado.getDni())) {
             System.out.println("Ya existe un empleado con ese DNI");
             System.out.println("Introduce un DNI");
             String dni = sc.nextLine();
@@ -128,15 +137,14 @@ public class Empresa {
 
     /**
      * Método comprobarEmpleado comprueba que el dni no exista
-     *
      * @param dni del empleado a comprobar
      * @return true o false
      */
-    private boolean comprobarEmpleado(String dni) {
+    private boolean comprobarEmpleado (String dni) {
 
-        if (listaEmpleados.size() > 0)
-            for (Empleado empleado : listaEmpleados)
-                if (empleado.getDni().equals(dni))
+        if(listaEmpleados.size()>0)
+            for(Empleado empleado : listaEmpleados)
+                if(empleado.getDni().equals(dni))
                     return true;
         return false;
     }
@@ -145,35 +153,34 @@ public class Empresa {
      * Método crearDepartamento crea un Departamento y lo introduce en el ArrayList de Departamentos
      */
     private void crearDepartamento() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner (System.in);
         String respuesta = "";
         String dept;
 
         do {
             System.out.println("Introduce un nombre de Departamento");
-            dept = (sc.nextLine());
-            while (comprobarDepartamento(dept)) {
+            dept=(sc.nextLine());
+            while(comprobarDepartamento(dept)) {
                 System.out.println("Ya existe un departamento con ese nombre");
                 System.out.println("Introduce otro nombre");
-                dept = (sc.nextLine());
+                dept=(sc.nextLine());
             }
             System.out.println("¿Quieres crear otro Departamento (s/n)");
             System.out.println("-------------");
             listaDepartamentos.add(dept);
             respuesta = sc.nextLine();
-        } while (respuesta.equals("s"));
+        }while(respuesta.equals("s"));
     }
 
     /**
      * Méetodo comprobarDepartamento comprueba que el Departamento no esté creado aún
-     *
      * @param nombre del Departamento
      * @return true o false
      */
-    private boolean comprobarDepartamento(String nombre) {
-        if (listaDepartamentos.size() > 0)
-            for (String dept : listaDepartamentos)
-                if (dept.equals(nombre))
+    private boolean comprobarDepartamento (String nombre) {
+        if(listaDepartamentos.size()>0)
+            for(String dept : listaDepartamentos)
+                if(dept.equals(nombre))
                     return true;
         return false;
 
@@ -184,38 +191,41 @@ public class Empresa {
      */
 
     private void asignarGerente() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner (System.in);
         int opcion1 = 1;
-        int opcion2 = 1;
+        int opcion2 =  1;
 
 
-        if (listaEmpleados.size() > 0 && listaDepartamentos.size() > 0) {
+        if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
             do {
-                if (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0)
+                if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)
                     System.out.println("Opccion Erronea");
                 System.out.println("Seleccione un empleado");
                 mostrarEmpleado();
                 opcion1 = sc.nextInt();
-            } while (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0);
-            int i = 0;
+            }while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);
+            int i =0;
             do {
-                if (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0)
+                if(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0)
                     System.out.println("Opccion Erronea");
                 System.out.println("Seleccione un Departamento");
                 mostrarDepartamento();
                 opcion2 = sc.nextInt();
-            } while (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0);
-            Empleado aux = listaEmpleados.get(opcion1 - 1);
-            if (aux instanceof Gerente)
-                comprobarAgregarGerenteDepartamento((Gerente) aux, listaDepartamentos.get(opcion2 - 1));
-            if (aux instanceof Director)
-                System.out.println("El empleado ya es Director de un Departamento");
-            else {
-                Gerente gerente = new Gerente(aux.getNombre(), aux.getSalario(), aux.getFechaNacimiento(), aux.getDni(), listaDepartamentos.get(opcion2 - 1));
-                comprobarAgregarGerenteDepartamento(gerente, listaDepartamentos.get(opcion2 - 1));
-            }
-        } else if (listaEmpleados.size() == 0)
+            }while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);
+                Empleado aux = listaEmpleados.get(opcion1-1);
+                String departamento = listaDepartamentos.get(opcion2-1);
+                if(aux.devuelvePuesto().equals("Empleado")){
+                    Gerente gerente =ManejadorClases.copiarEmpleadoGerente(aux, departamento);
+                    comprobarAgregarGerenteDepartamento(gerente, departamento);
+                } else if (aux.devuelvePuesto().equals("Gerente")) {
+                    System.out.println("El empleado ya es Gerente de un Departamento");
+                }
+                else{
+                    System.out.println("El empleado ya es Director");
+                }        }
+        else if (listaEmpleados.size()==0)
             System.out.println("Debe crear antes un Empleado");
+
         else
             System.out.println("Debe crear antes un Departamento");
 
@@ -224,41 +234,43 @@ public class Empresa {
     /**
      * Método comprobarAgregarGerenteDepartamento comprueba que el empleado no sea Gerente del Departamento seleccionado
      * y que que el Departamento no tenga Gerente todavía
-     *
-     * @param empleado     empleado a procesar
+     * @param empleado empleado a procesar
      * @param departamento en el que realizar la bśuqueda
      */
-    private boolean comprobarAgregarGerenteDepartamento(Empleado empleado, String departamento) {
+    private void comprobarAgregarGerenteDepartamento(Gerente empleado, String departamento) {
         int i = 0;
-        int aux = 0;
+        int aux =0;
         boolean bandera = false;
-        if (listaEmpleados.size() > 0) {
-            for (Empleado emp : listaEmpleados) {
-                if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
-                    aux = i;
-                    bandera = true;
-                } else if (emp instanceof Gerente) {
-                    if (emp.getDni().equals(empleado.getDni())) {
-                        System.out.println("Este empleado ya es Gerente de un Departamento");
-                        bandera = false;
-                    } else if (!emp.getDni().equals(empleado.getDni()) && ((Gerente) emp).getDepartamento().equals(departamento)) {
-                        System.out.println("Este Departamento ya tiene un Gerente");
-                        bandera = false;
-                    }
-                }
-                i++;
-            }
-            if (bandera && empleado instanceof Gerente) {
+        if(listaEmpleados.size()>0){
+        for (Empleado emp : listaEmpleados) {
+           if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
+               aux = i;
+               bandera = true;
+           }
+           else if(emp instanceof  Gerente){
+               if(emp.getDni().equals(empleado.getDni())){
+                   System.out.println("Este empleado ya es Gerente de un Departamento");
+                   bandera = false;
+               }
+               else if(!emp.getDni().equals(empleado.getDni())&&((Gerente) emp).getDepartamento().equals(departamento)){
+                   System.out.println("Este Departamento ya tiene un Gerente");
+                   bandera = false;
+               }
+           }
+           i++;
+       }
+            if(bandera) {
                 listaEmpleados.remove(aux);
-                ((Gerente)empleado).setDepartamento(departamento);
+                empleado.incentivo();
+                empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
-        } else if (empleado instanceof Gerente){
-            ((Gerente)empleado).setDepartamento(departamento);
+       }
+       else{
+            empleado.setDepartamento(departamento);
+            empleado.incentivo();
             listaEmpleados.add(empleado);
         }
-
-        return bandera;
     }
 
     /**
@@ -269,8 +281,8 @@ public class Empresa {
 
         System.out.println("-------------");
         for (Empleado empleado : listaEmpleados) {
-            System.out.println(i + ") " + empleado.toString());
-            i++;
+                System.out.println(i + ") " + empleado.toString());
+                i++;
         }
         System.out.println("-------------");
     }
@@ -280,37 +292,42 @@ public class Empresa {
      */
 
     private void asignarDirector() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner (System.in);
         int opcion1 = 1;
-        int opcion2 = 1;
+        int opcion2 =  1;
         boolean bandera = false;
         String matricula;
 
-        if (listaEmpleados.size() > 0 && listaDepartamentos.size() > 0) {
+        if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
             do {
-                if (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0)
+                if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)
                     System.out.println("Opccion Erronea");
                 System.out.println("Seleccione un empleado");
                 mostrarEmpleado();
                 opcion1 = Integer.parseInt(sc.nextLine());
-            } while (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0);
-            int i = 0;
+            }while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);
+            int i =0;
             do {
-                if (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0)
+                if(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0)
                     System.out.println("Opccion Erronea");
                 System.out.println("Seleccione un Departamento");
                 mostrarDepartamento();
-                opcion2 = Integer.parseInt(sc.nextLine());
-            } while (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0);
-            Empleado aux = listaEmpleados.get(opcion1 - 1);
-            if (!(aux instanceof Director) && !(aux instanceof Gerente)) {
-                crearDirector(aux, opcion2);
-            } else if (aux instanceof Gerente) {
-                ((Gerente) aux).eliminarIncentivo();
-                crearDirector(aux, opcion2);
-            } else
-                comprobarAgregarDirectorDepartamento(aux,listaDepartamentos.get(opcion2 - 1));
-        } else if (listaEmpleados.size() == 0)
+                opcion2 =  Integer.parseInt(sc.nextLine());
+            }while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);
+            Empleado aux = listaEmpleados.get(opcion1-1);
+            String departamento = listaDepartamentos.get(opcion2-1);
+            if(aux.devuelvePuesto().equals("Gerente")) {
+                Director director = ManejadorClases.copiarGerenteDirector((Gerente)aux);
+                director.setMatriculaCoche(comprobarMatricula());
+                comprobarAgregarDirectorDepartamento(director, departamento);
+                            }
+            else{
+                crearDirector(aux, opcion2-1);
+            }
+
+            }
+
+        else if (listaEmpleados.size()==0)
             System.out.println("Debe crear antes un Empleado");
 
         else
@@ -318,133 +335,214 @@ public class Empresa {
 
     }
 
-    /**
-     * Método crearDirector Crea un director, comprueba su matrícula y llama al méotdo comprobarAgregarDirectorDepartamento
-     *
-     * @param empleado a promocionar
-     * @param opcion   posicion que ocupa en la lista de Empleados
-     */
-    private void crearDirector(Empleado empleado, int opcion) {
-
+    private void crearDirector(Empleado empleado, int opcion){        ;
         Director director = new Director(empleado.getNombre(), empleado.getSalario(), empleado.getFechaNacimiento(), empleado.getDni());
         director.setMatriculaCoche(comprobarMatricula());
-        comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion - 1));
-
+        comprobarAgregarDirectorDepartamento(director, listaDepartamentos.get(opcion));
     }
-
     /**
      * Método comprobarMatricula comprueba que la matricula no esté todavía asignada a un Director
+     *
      */
     private String comprobarMatricula() {
         boolean bandera = false;
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner (System.in);
         String matricula;
 
         do {
-            if (bandera)
+            if(bandera)
                 System.out.println("Matricula ya Existente");
             System.out.println("Introduzca una matricula para el vehiculo");
             matricula = sc.nextLine();
-            while (!matricula.matches(("^\\d{4}[A-Z]{3}"))) {
+            while(!matricula.matches(("^\\d{4}[A-Z]{3}"))) {
                 System.out.println("Matricula Erronea");
                 System.out.println("Introduzca una matricula para el vehiculo");
                 matricula = sc.nextLine();
             }
-            if (listaEmpleados.size() > 0)
-                for (Empleado empleado : listaEmpleados) {
-                    if (empleado instanceof Director)
-                        if (((Director) empleado).getMatriculaCoche().equals(matricula)) {
+            if(listaEmpleados.size()>0)
+            for (Empleado empleado : listaEmpleados){
+                    if(empleado instanceof Director)
+                        if(((Director) empleado).getMatriculaCoche().equals(matricula)){
                             bandera = true;
-                        } else {
+                        }
+                        else{
                             bandera = false;
                         }
-                }
+            }
 
-        } while (bandera);
+        }while(bandera);
 
         return matricula;
     }
 
     /**
      * Método comprobarAgregarDirectorDepartamento comprueba que el empleado no sea Director del Departamento seleccionado
-     * y que que el Departamento no tenga Director todavía     *
-     * @param empleado     empleado a procesar
+     * y que que el Departamento no tenga Director todavía
+     * @param empleado empleado a procesar
      * @param departamento en el que realizar la bśuqueda
      */
 
-    private boolean comprobarAgregarDirectorDepartamento(Empleado empleado, String departamento) {
+    private void comprobarAgregarDirectorDepartamento(Director empleado, String departamento) {
         int i = 0;
         int aux = 0;
         boolean bandera = false;
 
-        if (listaEmpleados.size() > 0) {
+        if(listaEmpleados.size()>0){
             for (Empleado emp : listaEmpleados) {
+
                 if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
                     aux = i;
                     bandera = true;
-                } else if (emp instanceof Director) {
-                    if (emp.getDni().equals(empleado.getDni())) {
+                }
+                else if(emp instanceof  Director){
+                    if(emp.getDni().equals(empleado.getDni())){
                         System.out.println("Este empleado ya es Director");
-                        bandera = false;
-                    } else if (!emp.getDni().equals(empleado.getDni()) && ((Director) emp).getDepartamento().equals(departamento)) {
-                        System.out.println("Este Departamento ya tiene un Director");
-                        bandera = false;
+                        bandera=false;
                     }
-                } else if (emp instanceof Gerente) {
-                    if (emp.getDni().equals(empleado.getDni())) {
+                    else if(((Director) emp).getDepartamento().equals(departamento)){
+                        System.out.println("Este Departamento ya tiene un Director");
+                        bandera=false;
+
+                    }
+
+                }
+                else if (emp instanceof Gerente)
+                    if (!((Gerente) emp).getDepartamento().equals(empleado.getDepartamento()) && !emp.getDni().equals(empleado.getDni())) {
                         aux = i;
                         bandera = true;
                     }
-                }
+
                 i++;
             }
-            if (bandera && empleado instanceof Director) {
+
+            if(bandera) {
                 listaEmpleados.remove(aux);
-                ((Director)empleado).setDepartamento(departamento);
+                empleado.incentivo();
+                empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
-        } else if (empleado instanceof Director){
-            ((Director)empleado).setDepartamento(departamento);
+        }
+        else{
+            empleado.incentivo();
+            empleado.setDepartamento(departamento);
             listaEmpleados.add(empleado);
         }
-
-        return bandera;
     }
 
 
-    /**
-     * Método mostrarGerentes() muestra los Gerentes del ArrayList de Empleados
-     */
+        /**
+         * Método mostrarGerentes() muestra los Gerentes del ArrayList de Empleados
+         */
 
     private void mostrarGerentes() {
         int i = 1;
-        if (listaEmpleados.size() > 0) {
+        if (listaEmpleados.size()>0) {
             for (Empleado empleado : listaEmpleados) {
                 if (empleado instanceof Gerente) {
-                    System.out.println(i + ") " + (empleado).toString());
+                    System.out.println(i + ") " + ((Gerente) empleado).toString());
                     i++;
                 }
             }
         }
     }
-
     /**
      * Método mostrarDirectores() muestra los Directores del ArrayList de Empleados
      */
 
     private void mostrarDirectores() {
         int i = 1;
-        if (listaEmpleados.size() > 0) {
+        if (listaEmpleados.size()>0) {
             for (Empleado empleado : listaEmpleados) {
                 if (empleado instanceof Director) {
-                    System.out.println(i + ") " + (empleado).toString());
+                    System.out.println(i + ") " + ((Director) empleado).toString());
                     i++;
                 }
             }
         }
     }
 
+    /**
+     * Método promocionarEmpleado promociona un Empleado Seleccionado
+     */
+    public void promocionarEmpleado() {
+        Scanner sc = new Scanner(System.in);
+        int opcion1 = 1;
+        int opcion2 = 1;
+
+        if (listaEmpleados.size() > 0 && listaDepartamentos.size() > 0) {
+            do {
+                if (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0)
+                    System.out.println("Opccion Erronea");
+                System.out.println("Seleccione un empleado");
+                mostrarEmpleado();
+                opcion1 = sc.nextInt();
+            } while (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0);
+            do {
+                if (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0)
+                    System.out.println("Opccion Erronea");
+                System.out.println("Seleccione un Departamento");
+                mostrarDepartamento();
+                opcion2 = sc.nextInt();
+            } while (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0);
+            Empleado aux = listaEmpleados.get(opcion1 - 1);
+            String departamento = listaDepartamentos.get(opcion2-1);
+            if(aux.devuelvePuesto().equals("Gerente")){
+                Director director= ManejadorClases.copiarGerenteDirector((Gerente)aux);
+                director.setMatriculaCoche(comprobarMatricula());
+                comprobarAgregarDirectorDepartamento(director, departamento);
+            }
+            else if (aux.devuelvePuesto().equals("Empleado")){
+                Gerente gerente = ManejadorClases.copiarEmpleadoGerente(aux, departamento);
+                comprobarAgregarGerenteDepartamento(gerente, departamento);
+            }
+             else
+            System.out.println("El empleado no puede promocionarse más");
+        }
+    }
+
+    /**
+     * Método bajarRangoEmpleado baja de Rango un Empleado seleccionado
+     */
+
+    public void bajarPromocionEmpleado(){
+
+        Scanner sc = new Scanner (System.in);
+        int opcion1 = 1;
+        int opcion2 =  1;
+
+        if (listaEmpleados.size() > 0 && listaDepartamentos.size() > 0) {
+            do {
+                if (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0)
+                    System.out.println("Opccion Erronea");
+                System.out.println("Seleccione un empleado");
+                mostrarEmpleado();
+                opcion1 = sc.nextInt();
+            } while (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0);
+            do {
+                if (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0)
+                    System.out.println("Opccion Erronea");
+                System.out.println("Seleccione un Departamento");
+                mostrarDepartamento();
+                opcion2 = sc.nextInt();
+            } while (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0);
+            Empleado aux = listaEmpleados.get(opcion1 - 1);
+            String departamento = listaDepartamentos.get(opcion2 - 1);
+            if (aux.devuelvePuesto().equals("Director")) {
+                Empleado empleado = ManejadorClases.copiarDirectorEmpleado((Director) aux);
+                listaEmpleados.remove(opcion1 - 1);
+                listaEmpleados.add(empleado);
+            } else if (aux.devuelvePuesto().equals("Gerente")) {
+                Empleado empleado = ManejadorClases.copiarGerenteEmpleado((Gerente) aux);
+                listaEmpleados.remove(opcion1 - 1);
+                listaEmpleados.add(empleado);
+            }
+            else
+                System.out.println("El Empleado no puede bajarse más de Rango");
+        }
+
+
+    }
+
+
 
 }
-
-
