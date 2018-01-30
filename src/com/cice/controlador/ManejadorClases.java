@@ -40,16 +40,6 @@ public class ManejadorClases {
         return director;
     }
 
-    public static Empleado copiarDirectorEmpleado (Director director){
-        director.eliminarIncentivo();
-        Empleado empleado = new Empleado();
-        empleado.setNombre(director.getNombre());
-        empleado.setSalario(director.getSalario());
-        empleado.setFechaNacimiento(director.getFechaNacimiento());
-        empleado.setDni(director.getDni());
-        return empleado;
-    }
-
     public static Empleado copiarDirectorGerente (Director director){
         director.eliminarIncentivo();
         Gerente gerente = new Gerente();
