@@ -8,6 +8,7 @@ public class Gerente extends Empleado{
 
     private String departamento;
 
+
     public Gerente (){
         super();
 
@@ -15,14 +16,14 @@ public class Gerente extends Empleado{
     public Gerente(String nombre, float salario, String fechaNacimiento, String dni, String departamento) {
         super(nombre, salario, fechaNacimiento, dni);
         this.departamento = departamento;
-
     }
 
 
     public Gerente(String nombre, float salario, String fechaNacimiento, String dni) {
         super(nombre, salario, fechaNacimiento, dni);
-        this.incentivo();
     }
+
+
 
     public String getDepartamento() {
         return departamento;

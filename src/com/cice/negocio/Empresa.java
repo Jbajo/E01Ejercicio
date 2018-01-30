@@ -261,14 +261,12 @@ public class Empresa {
        }
             if(bandera) {
                 listaEmpleados.remove(aux);
-                empleado.incentivo();
                 empleado.setDepartamento(departamento);
                 listaEmpleados.add(empleado);
             }
        }
        else{
             empleado.setDepartamento(departamento);
-            empleado.incentivo();
             listaEmpleados.add(empleado);
         }
     }
@@ -390,47 +388,55 @@ public class Empresa {
         if(listaEmpleados.size()>0){
             for (Empleado emp : listaEmpleados) {
 
-                if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
-                    aux = i;
-                    bandera = true;
-                }
-                else if(emp instanceof  Director){
-                    if(emp.getDni().equals(empleado.getDni())){
-                        System.out.println("Este empleado ya es Director");
-                        bandera=false;
-                    }
-                    else if(((Director) emp).getDepartamento().equals(departamento)){
-                        System.out.println("Este Departamento ya tiene un Director");
-                        bandera=false;
+                if(bandera == false) {
 
-                    }
-
-                }
-                else if (emp instanceof Gerente)
-                    if (!((Gerente) emp).getDepartamento().equals(empleado.getDepartamento()) && !emp.getDni().equals(empleado.getDni())) {
+                    if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
                         aux = i;
                         bandera = true;
-                    }
+                    } else if (emp.devuelvePuesto().equals("Director")) {
+                        if (emp.getDni().equals(empleado.getDni())) {
+                            System.out.println("Este empleado ya es Director");
+                            bandera = false;
+                        } else if (((Director) emp).getDepartamento().equals(departamento) && emp.getDni().equals(empleado.getDni())) {
+                            System.out.println("Este Departamento ya tiene un Director");
+                            bandera = false;
+                        }
+                    } else if (emp instanceof Gerente)
+                        if (emp.getDni().equals(empleado.getDni())) {
+                            for (Empleado empleado1 : listaEmpleados) {
+                                if (!empleado1.getDni().equals(emp.getDni()) && empleado1.devuelvePuesto().equals("Director") && ((Gerente) emp).getDepartamento().equals(((Gerente) emp).getDepartamento())) {
+                                    System.out.println("Este Departamento ya tiene un Director");
+                                    bandera = false;
+                                }
+                                else if (empleado1.getDni().equals(emp.getDni())){
+                                    aux = i;
+                                    bandera = true;
 
+                                }
+                            }
+                        } else {
+                            bandera = false;
+                        }
+                }
                 i++;
             }
 
             if(bandera) {
                 listaEmpleados.remove(aux);
-                empleado.incentivo();
                 empleado.setDepartamento(departamento);
+                System.out.println(empleado.toString());
                 listaEmpleados.add(empleado);
             }
         }
         else{
-            empleado.incentivo();
             empleado.setDepartamento(departamento);
             listaEmpleados.add(empleado);
         }
     }
 
 
-        /**
+
+    /**
          * Método mostrarGerentes() muestra los Gerentes del ArrayList de Empleados
          */
 

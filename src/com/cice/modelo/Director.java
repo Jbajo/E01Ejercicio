@@ -10,8 +10,6 @@ public class Director extends Empleado{
     private String matriculaCoche;
     private String departamento;
 
-
-
     public Director (){
         super();
     }
@@ -19,15 +17,17 @@ public class Director extends Empleado{
         super(nombre, salario, fechaNacimiento, dni);
         this.matriculaCoche = matriculaCoche;
         this.departamento = departamento;
-
     }
 
     public Director(String nombre, float salario, String fechaNacimiento, String dni) {
         super(nombre, salario, fechaNacimiento, dni);
-
     }
 
-    public void eliminarIncentivo(){this.setSalario((this.getSalario()-100f)/1.10f);}
+
+    @Override
+    public void eliminarIncentivo() {
+        this.setSalario((this.getSalario()-100f)/1.10f);
+    }
     public String getMatriculaCoche() {
         return matriculaCoche;
     }
@@ -44,7 +44,7 @@ public class Director extends Empleado{
 
     @Override
     public void incentivo() {
-        this.setSalario(this.getSalario()*1.10f+(float)100);
+        this.setSalario((this.getSalario()*1.10f)+(float)100);
     }
 
     @Override

@@ -12,6 +12,7 @@ public class Empleado {
     private float salario;
     private String fechaNacimiento;
 
+
     public Empleado(String nombre, float salario, String fechaNacimiento, String dni) {
 
         this.nombre = nombre;

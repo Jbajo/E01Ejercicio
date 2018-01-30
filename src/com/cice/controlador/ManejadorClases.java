@@ -36,6 +36,7 @@ public class ManejadorClases {
         director.setFechaNacimiento(gerente.getFechaNacimiento());
         director.setDni(gerente.getDni());
         director.setDepartamento(gerente.getDepartamento());
+        director.incentivo();
         return director;
     }
 
