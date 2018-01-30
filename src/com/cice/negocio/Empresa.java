@@ -538,7 +538,6 @@ public class Empresa {
                 opcion2 = sc.nextInt();
             } while (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0);
             Empleado aux = listaEmpleados.get(opcion1 - 1);
-            String departamento = listaDepartamentos.get(opcion2 - 1);
             if (aux.devuelvePuesto().equals("Director")) {
                 Empleado empleado = ManejadorClases.copiarDirectorGerente((Director)aux);
                 listaEmpleados.remove(opcion1 - 1);
