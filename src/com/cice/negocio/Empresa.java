@@ -333,6 +333,12 @@ public class Empresa {
 
     }
 
+    /**
+     * Método crearDirector crea un Director dado un Empleado y el Departamento
+     * @param empleado empleado a crear como Director
+     * @param opcion departamento al que pertenece
+     */
+
     private void crearDirector(Empleado empleado, int opcion){        ;
         Director director = new Director(empleado.getNombre(), empleado.getSalario(), empleado.getFechaNacimiento(), empleado.getDni());
         director.setMatriculaCoche(comprobarMatricula());
