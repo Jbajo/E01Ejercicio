@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="f76fc69d-bccc-42e3-b866-faafe48db637" name="Commit Modificado" comment="Commit Modificado" />
-    <list default="true" id="fa93bce9-ab28-4cfc-a655-5c6a33524038" name="Default" comment="Commit Promocion/Bajar Rango">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/cice/controlador/ManejadorClases.java" />
+    <list default="true" id="fa93bce9-ab28-4cfc-a655-5c6a33524038" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/controlador/ControladorClases.class" afterPath="" />
       <change beforePath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/modelo/Director.class" afterPath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/modelo/Director.class" />
       <change beforePath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/modelo/Empleado.class" afterPath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/modelo/Empleado.class" />
       <change beforePath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/modelo/Gerente.class" afterPath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/modelo/Gerente.class" />
       <change beforePath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/negocio/Empresa.class" afterPath="$PROJECT_DIR$/out/production/E01Empleados/com/cice/negocio/Empresa.class" />
-      <change beforePath="$PROJECT_DIR$/src/com/cice/modelo/Director.java" afterPath="$PROJECT_DIR$/src/com/cice/modelo/Director.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/cice/modelo/Empleado.java" afterPath="$PROJECT_DIR$/src/com/cice/modelo/Empleado.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/cice/modelo/Gerente.java" afterPath="$PROJECT_DIR$/src/com/cice/modelo/Gerente.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/cice/negocio/Empresa.java" afterPath="$PROJECT_DIR$/src/com/cice/negocio/Empresa.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,8 +58,8 @@
       <file leaf-file-name="Empresa.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/cice/negocio/Empresa.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="88" column="41" lean-forward="false" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
+            <state relative-caret-position="309">
+              <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -600,7 +594,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517256585735</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Commit Promocion/Bajar Promocion">
+      <created>1517291951969</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1517291951969</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -677,7 +678,8 @@
     <MESSAGE value="Commit Validaciones Sueldo" />
     <MESSAGE value="Commit Validaciones" />
     <MESSAGE value="Commit Modificado" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit Modificado" />
+    <MESSAGE value="Commit Promocion/Bajar Promocion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit Promocion/Bajar Promocion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1315,8 +1317,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/cice/negocio/Empresa.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="88" column="41" lean-forward="false" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
+        <state relative-caret-position="309">
+          <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
