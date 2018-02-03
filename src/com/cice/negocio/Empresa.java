@@ -120,12 +120,12 @@ public class Empresa {
         empleado.setFechaNacimiento(sc.nextLine());
         System.out.println("Introduce un DNI");
         empleado.setDni(sc.nextLine());
-        while(!ValidadorDNI.validar(empleado.getDni())){
+        /*while(!ValidadorDNI.validar(empleado.getDni())){
             System.out.println("DNI ERRONEO...");
             System.out.println("Introduce un DNI");
             String dni = sc.nextLine();
             empleado.setDni(dni);
-        }
+        }*/
         while(comprobarEmpleado(empleado.getDni())) {
             System.out.println("Ya existe un empleado con ese DNI");
             System.out.println("Introduce un DNI");
@@ -252,7 +252,7 @@ public class Empresa {
                    System.out.println("Este empleado ya es Gerente de un Departamento");
                    bandera = false;
                }
-               else if(!emp.getDni().equals(empleado.getDni())&&((Gerente) emp).getDepartamento().equals(departamento)){
+               else if(((Gerente) emp).getDepartamento().equals(departamento)){
                    System.out.println("Este Departamento ya tiene un Gerente");
                    bandera = false;
                }
@@ -389,45 +389,51 @@ public class Empresa {
     private void comprobarAgregarDirectorDepartamento(Director empleado, String departamento) {
         int i = 0;
         int aux = 0;
-        boolean bandera = false;
-
+        int bandera = 0;
         if(listaEmpleados.size()>0){
             for (Empleado emp : listaEmpleados) {
 
-                if(bandera == false) {
-
-                    if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
-                        aux = i;
-                        bandera = true;
-                    } else if (emp.devuelvePuesto().equals("Director")) {
+                if(bandera == 0) {
+                    if (emp.devuelvePuesto().equals("Director")) {
                         if (emp.getDni().equals(empleado.getDni())) {
                             System.out.println("Este empleado ya es Director");
-                            bandera = false;
-                        } else if (((Director) emp).getDepartamento().equals(departamento) && emp.getDni().equals(empleado.getDni())) {
+                            bandera = 2;
+                        } else if (((Director) emp).getDepartamento().equals(departamento)) {
                             System.out.println("Este Departamento ya tiene un Director");
-                            bandera = false;
+                            bandera = 2;
                         }
-                    } else if (emp instanceof Gerente)
+
+                    }
+                    else if (emp.devuelvePuesto().equals("Gerente")) {
                         if (emp.getDni().equals(empleado.getDni())) {
                             for (Empleado empleado1 : listaEmpleados) {
                                 if (!empleado1.getDni().equals(emp.getDni()) && empleado1.devuelvePuesto().equals("Director") && ((Gerente) emp).getDepartamento().equals(((Gerente) emp).getDepartamento())) {
                                     System.out.println("Este Departamento ya tiene un Director");
-                                    bandera = false;
+                                    bandera = 2;
                                 }
                                 else if (empleado1.getDni().equals(emp.getDni())){
                                     aux = i;
-                                    bandera = true;
+                                    bandera = 1;
 
                                 }
                             }
-                        } else {
-                            bandera = false;
                         }
+                    }
+                    else if (emp.devuelvePuesto().equals("Empleado") && emp.getDni().equals(empleado.getDni())) {
+                        for(Empleado emp2 : listaEmpleados) {
+                            if (!emp.getDni().equals(emp2.getDni()) && emp2 instanceof Director && ((Director) emp2).getDepartamento().equals(departamento)) {
+                                System.out.println("Este Departamento ya tiene un Director");
+                                bandera = 2;
+                            } else {
+                                aux = i;
+                                bandera = 1;
+                            }
+                        }
+                    }
                 }
                 i++;
             }
-
-            if(bandera) {
+            if(bandera == 1) {
                 listaEmpleados.remove(aux);
                 empleado.setDepartamento(departamento);
                 System.out.println(empleado.toString());
@@ -530,13 +536,6 @@ public class Empresa {
                 mostrarEmpleado();
                 opcion1 = sc.nextInt();
             } while (opcion1 - 1 > listaEmpleados.size() - 1 || opcion1 - 1 < 0);
-            do {
-                if (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0)
-                    System.out.println("Opccion Erronea");
-                System.out.println("Seleccione un Departamento");
-                mostrarDepartamento();
-                opcion2 = sc.nextInt();
-            } while (opcion2 - 1 > listaDepartamentos.size() - 1 || opcion2 - 1 < 0);
             Empleado aux = listaEmpleados.get(opcion1 - 1);
             if (aux.devuelvePuesto().equals("Director")) {
                 Empleado empleado = ManejadorClases.copiarDirectorGerente((Director)aux);
